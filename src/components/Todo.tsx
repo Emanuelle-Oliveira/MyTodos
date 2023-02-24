@@ -1,13 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
+import Modal from "./Modal";
+import Backdrop from "./Backdrop";
 
 interface TodoProps {
   text: string;
 }
 
 export default function Todo( props : TodoProps) {
+  const [ modalIsOpen, setModalIsOpen ] = useState(false);
 
   function deleteHandler() {
-      console.log('clicado');
+    setModalIsOpen(true);
+  }
+  function closeModalHandler() {
+    setModalIsOpen(false);
   }
 
   return (
@@ -21,6 +27,8 @@ export default function Todo( props : TodoProps) {
           Delete
         </button>
       </div>
+      { modalIsOpen && <Modal onConfirm={closeModalHandler} onCancel={closeModalHandler}/> }
+      { modalIsOpen && <Backdrop onClick={closeModalHandler} /> }
     </div>
   );
 }
